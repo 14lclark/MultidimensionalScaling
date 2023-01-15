@@ -14,11 +14,11 @@ def gradient(func, pt, dx = 1e-6):
 def gradient_descent(
                     func, # function to optimize
                     init: np.ndarray, # starting point, np array
-                    eta = lambda x: 1e-2, # learning rate schedule
+                    eta = lambda x: 1/x, # learning rate schedule
                     epsilon: np.double = 1e-10, # tolerance
                     max_iter: int = 1e5,
                     ):
-    delta, iter_num = 1, 0
+    delta, iter_num = 1, 1
     pos = init
     curr = func(init)
     while (abs(delta) > epsilon or iter_num == 0) and iter_num < max_iter:
@@ -31,8 +31,9 @@ def gradient_descent(
         print(curr)
         delta = curr - last
         print(delta)
-        iter_num += 1
         print(iter_num)
+        iter_num += 1
+        
     return pos
 
 # Examples
@@ -43,4 +44,4 @@ def square(x):
 
 print(gradient(square, np.array([2.,3.,4.])))
 
-print(gradient_descent(square, np.array([254.,-13.,434.]), eta=lambda x: 1 / (x+1)))
+print(gradient_descent(square, np.array([254.,-13.,434.])))
